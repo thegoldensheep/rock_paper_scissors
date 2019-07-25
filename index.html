@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+        function game(){
+            const WINMESSAGE = "YOU WIN THIS ROUND!";
+            const LOSEMESSAGE = "YOU LOSE THIS ROUND";
+            const TIEMESSAGE = "THIS ROUND IS A TIE";
+
+            function computerPlay(){
+                let zeroThroughTwo = Math.floor(Math.random()*3);
+                switch(zeroThroughTwo){
+                    case 0:
+                        return "rock";
+                    case 1:
+                        return "paper";
+                    case 2:
+                        return "scissors";
+                }
+            } 
+
+            function getUserInput() {
+                let validInput = false;
+                let userInput;
+                while(!validInput){
+                    userInput = prompt("Rock, Paper, Or Scissors?").toLowerCase().trim();
+                    if(userInput === "rock"){
+                        validInput = true;
+                    }else if(userInput === "paper"){
+                        validInput = true;
+                    }else if(userInput === "scissors" || userInput === "scissor"){
+                        userInput = "scissors";
+                        validInput = true;
+                    }else{
+                        alert("You must enter rock, paper, or scissors!");
+                    }
+                    
+                }
+
+                return userInput;
+            }
+
+            function playRound(playerSelection, computerSelection){
+                let result;
+
+                if(playerSelection === "rock"){
+                    if(computerSelection === "rock"){
+                        result = TIEMESSAGE;
+                    }else if(computerSelection === "paper"){
+                        result = LOSEMESSAGE;
+                    }else if(computerSelection === "scissors"){
+                        result = WINMESSAGE;
+                    }
+
+                }else if(playerSelection === "paper"){
+                    if(computerSelection === "rock"){
+                        result = WINMESSAGE;
+                    }else if(computerSelection === "paper"){
+                        result = TIEMESSAGE;
+                    }else if(computerSelection === "scissors"){
+                        result = LOSEMESSAGE;
+                    }
+                }else if(playerSelection === "scissors"){
+                    if(computerSelection === "rock"){
+                        result = LOSEMESSAGE;
+                    }else if(computerSelection === "paper"){
+                        result = WINMESSAGE;
+                    }else if(computerSelection === "scissors"){
+                        result = TIEMESSAGE;
+                    }
+
+                }
+
+                return result;
+            }
+
+            let userWins = 0;
+            let computerWins = 0;
+
+            let round = 1;
+            while(round <= 5){
+                let roundResult = playRound(getUserInput(), computerPlay());
+                console.log(roundResult);
+
+                if(roundResult === WINMESSAGE){
+                    userWins++;
+                }else if(roundResult === LOSEMESSAGE){
+                    computerWins++;
+                }
+                round++;
+            }
+
+            if(userWins > computerWins){
+                console.log("Congratulations YOU WIN OVERALL!");
+            }else if(userWins < computerWins){
+                console.log("Sorry, you lost overall")
+            }else if(userWins === computerWins){
+                console.log("Overall, it was a tie")
+            }
+
+        }
+        
+
+        game();
+    </script>
+    </head>
+
+    <body>
+    </body>
+</html>
